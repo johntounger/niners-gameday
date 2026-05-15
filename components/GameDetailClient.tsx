@@ -11,6 +11,7 @@ import TailgateSection from './TailgateSection';
 import ParkingSection from './ParkingSection';
 import MeetupSection from './MeetupSection';
 import NotesSection from './NotesSection';
+import ShareSheet from './ShareSheet';
 
 interface Props {
   initialGame: Game;
@@ -22,6 +23,7 @@ export default function GameDetailClient({ initialGame, initialGuests, initialIt
   const [game, setGame] = useState<Game>(initialGame);
   const [guests, setGuests] = useState<Guest[]>(initialGuests);
   const [items, setItems] = useState<TailgateItem[]>(initialItems);
+  const [shareOpen, setShareOpen] = useState(false);
 
   useEffect(() => {
     const supa = getSupabase();
@@ -79,11 +81,28 @@ export default function GameDetailClient({ initialGame, initialGuests, initialIt
       <div className="px-3.5 pt-4 pb-10">
         <PlanSection game={game} onChange={setGame} />
         <GuestSection game={game} guests={guests} onChange={setGuests} />
-        <TailgateSection game={game} guests={guests} items={items} onChange={setItems} />
+        <TailgateSection game={game} items={items} onChange={setItems} />
         <ParkingSection game={game} onChange={setGame} />
         <MeetupSection game={game} onChange={setGame} />
         <NotesSection game={game} onChange={setGame} />
+
+        <button
+          type="button"
+          onClick={() => setShareOpen(true)}
+          className="bg-red text-white border-none py-3.5 px-4 rounded-[12px] w-full cursor-pointer text-[14px] font-bold flex items-center justify-center gap-2 mt-4 shadow-card hover:opacity-90"
+        >
+          <span className="text-[16px]">📤</span> Send details to guests
+        </button>
       </div>
+
+      {shareOpen && (
+        <ShareSheet
+          game={game}
+          guests={guests}
+          items={items}
+          onClose={() => setShareOpen(false)}
+        />
+      )}
     </div>
   );
 }
