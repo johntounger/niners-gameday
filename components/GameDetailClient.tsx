@@ -9,6 +9,7 @@ import PlanSection from './PlanSection';
 import GuestSection from './GuestSection';
 import TailgateSection from './TailgateSection';
 import ParkingSection from './ParkingSection';
+import MeetupSection from './MeetupSection';
 import NotesSection from './NotesSection';
 
 interface Props {
@@ -22,7 +23,6 @@ export default function GameDetailClient({ initialGame, initialGuests, initialIt
   const [guests, setGuests] = useState<Guest[]>(initialGuests);
   const [items, setItems] = useState<TailgateItem[]>(initialItems);
 
-  // Subscribe to realtime updates so John, Marilyn, and Justin see each other's edits.
   useEffect(() => {
     const supa = getSupabase();
     const channel = supa
@@ -81,6 +81,7 @@ export default function GameDetailClient({ initialGame, initialGuests, initialIt
         <GuestSection game={game} guests={guests} onChange={setGuests} />
         <TailgateSection game={game} guests={guests} items={items} onChange={setItems} />
         <ParkingSection game={game} onChange={setGame} />
+        <MeetupSection game={game} onChange={setGame} />
         <NotesSection game={game} onChange={setGame} />
       </div>
     </div>
@@ -89,8 +90,6 @@ export default function GameDetailClient({ initialGame, initialGuests, initialIt
 
 type Row = { id: string };
 
-// Supabase realtime payloads come in as loosely-typed objects; we cast at the
-// call sites to keep the type plumbing simple.
 function applyChange<T extends Row>(
   prev: T[],
   payload: { eventType: string; new: unknown; old: unknown },
