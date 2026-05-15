@@ -5,7 +5,7 @@ import SeasonBanner from '@/components/SeasonBanner';
 import GameCard from '@/components/GameCard';
 import PastGames from '@/components/PastGames';
 
-export const revalidate = 60; // light caching; realtime keeps detail pages fresh
+export const revalidate = 60;
 
 interface GameWithCounts extends Game {
   guest_count: number;
@@ -61,7 +61,6 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col">
-      {/* Header */}
       <div className="sticky top-0 z-10 flex items-center justify-between bg-white px-5 py-4 border-b border-[var(--line)]">
         <div className="flex items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -83,9 +82,6 @@ export default async function HomePage() {
         {err && (
           <div className="rounded-card border border-[var(--line)] bg-white p-4 my-3 text-sm text-[var(--ink-2)]">
             Couldn&apos;t load games: {err}
-            <div className="text-xs mt-1">
-              Make sure your Supabase env vars are set and the schema + seed have been run.
-            </div>
           </div>
         )}
 
@@ -108,24 +104,7 @@ export default async function HomePage() {
         </div>
 
         <SectionDivider title="PAST GAMES" count={`${past.length} GAMES`} className="mt-5" />
-        <PastGames
-          games={past.map((g) => ({
-            id: g.id,
-            week: g.week,
-            opponent: g.opponent,
-            opponent_abbr: g.opponent_abbr,
-            kickoff_at: g.kickoff_at,
-            tv_network: g.tv_network,
-            label: g.label,
-            plan_type: g.plan_type,
-            parking_bought: g.parking_bought,
-            notes: g.notes,
-            created_at: g.created_at,
-            updated_at: g.updated_at,
-            guest_count: g.guest_count,
-            item_count: g.item_count,
-          }))}
-        />
+        <PastGames games={past} />
       </div>
     </div>
   );
