@@ -13,6 +13,9 @@ export interface Game {
   plan_type: PlanType | null;
   parking_bought: boolean;
   notes: string;
+    meet_location: string | null;
+    driver: string | null;
+    meet_time: string | null;
   created_at: string;
   updated_at: string;
 }
