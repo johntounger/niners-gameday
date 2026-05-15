@@ -48,7 +48,7 @@ export default function ShareSheet({ game, guests, items, onClose }: Props) {
         className="bg-white w-full max-w-[420px] rounded-t-[20px] p-5"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="display text-[22px] tracking-[0.04em] m-0 mb-1">SHARE WITH THE CREW</h3>
+        <h3 className="display text-[22px] tracking-[0.04em] m-0 mb-1">SEND DETAILS TO GUESTS</h3>
         <div className="text-[13px] text-[var(--ink-2)] mb-3.5">
           Tap &quot;Copy&quot; then paste into Messages, WhatsApp, or text.
         </div>
