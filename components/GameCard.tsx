@@ -78,7 +78,7 @@ export default function GameCard({ game, guestCount, itemCount, isNextUp, isPast
           )}
           {guestCount > 0 && (
             <span className="bg-[#E6F4EA] text-green text-[11px] font-semibold py-[3px] px-2 rounded-full inline-flex items-center gap-1">
-              👥 {guestCount} guest{guestCount === 1 ? '' : 's'}
+              👥 {guestCount} attendee{guestCount === 1 ? '' : 's'}
             </span>
           )}
           {itemCount > 0 && (
