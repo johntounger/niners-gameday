@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Game } from '@/lib/types';
 import { TEAMS, logoUrl } from '@/lib/teams';
-import { formatGameDate, PLAN_EMOJI, PLAN_PILL_LABEL } from '@/lib/format';
+import { formatGameDate, formatLineCompact, PLAN_EMOJI, PLAN_PILL_LABEL } from '@/lib/format';
 
 interface Props {
   game: Game;
@@ -27,7 +27,6 @@ export default function GameCard({ game, guestCount, itemCount, isNextUp, isPast
 
   return (
     <Link href={`/game/${game.id}`} className={cardClasses} style={cardStyle}>
-      {/* Date column */}
       <div className="w-[52px] flex-shrink-0 text-center pt-1">
         <div className="text-[11px] font-bold uppercase tracking-[0.1em] text-gold">
           {date.month}
@@ -38,7 +37,6 @@ export default function GameCard({ game, guestCount, itemCount, isNextUp, isPast
         </div>
       </div>
 
-      {/* Body */}
       <div className="flex-1 min-w-0">
         {isNextUp && !isPast && (
           <div className="inline-block bg-red text-white display text-[12px] py-0.5 px-2 rounded mb-1.5 tracking-[0.1em]">
@@ -56,11 +54,16 @@ export default function GameCard({ game, guestCount, itemCount, isNextUp, isPast
         >
           VS. {game.opponent.toUpperCase()}
         </div>
-        <div className="text-[12px] text-[var(--ink-2)] mb-2 flex items-center gap-1.5">
+        <div className="text-[12px] text-[var(--ink-2)] mb-2 flex items-center gap-1.5 flex-wrap">
           {date.time}
           {game.tv_network && (
             <span className="bg-[#F0F0F4] py-px px-1.5 rounded text-[10px] font-bold text-[var(--ink-2)] tracking-wide">
               {game.tv_network}
+            </span>
+          )}
+          {formatLineCompact(game.spread, game.over_under) && (
+            <span className="bg-[#1A1A1A] text-white py-px px-1.5 rounded text-[10px] font-bold tracking-wide">
+              🎲 {formatLineCompact(game.spread, game.over_under)}
             </span>
           )}
         </div>
@@ -98,7 +101,6 @@ export default function GameCard({ game, guestCount, itemCount, isNextUp, isPast
         </div>
       </div>
 
-      {/* Opponent logo with halo */}
       <div
         className="opp-logo-badge self-center"
         style={{ '--team-rgb': team?.rgb ?? '0,0,0' } as React.CSSProperties}
