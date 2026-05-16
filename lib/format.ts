@@ -113,6 +113,12 @@ export function buildShareText({ game, guests, items }: ShareTextInput): string 
     lines.push('');
   }
 
+  const lineCompact = formatLineCompact(game.spread, game.over_under);
+  if (lineCompact) {
+    lines.push(`🎲 Line: ${lineCompact}`);
+    lines.push('');
+  }
+
   const meetupBits: string[] = [];
   if (game.meet_location) meetupBits.push(`Where: ${game.meet_location}`);
   if (game.driver) meetupBits.push(`Driver: ${game.driver}`);
@@ -145,6 +151,32 @@ export function buildShareText({ game, guests, items }: ShareTextInput): string 
   lines.push('Go Niners! 💛❤️');
 
   return lines.join('\n');
+}
+
+export function formatSpread(spread: number | null): string {
+  if (spread === null || spread === undefined) return '—';
+  if (spread === 0) return "PICK 'EM";
+  const sign = spread > 0 ? '+' : '';
+  return `SF ${sign}${spread}`;
+}
+
+export function formatTotal(total: number | null): string {
+  if (total === null || total === undefined) return '—';
+  return `O/U ${total}`;
+}
+
+export function formatLineCompact(
+  spread: number | null,
+  total: number | null
+): string | null {
+  if (spread === null && total === null) return null;
+  const parts: string[] = [];
+  if (spread !== null) {
+    if (spread === 0) parts.push('PK');
+    else parts.push(`${spread > 0 ? '+' : ''}${spread}`);
+  }
+  if (total !== null) parts.push(`O/U ${total}`);
+  return parts.join(' · ');
 }
 
 export function initials(name: string): string {
