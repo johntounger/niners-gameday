@@ -7,15 +7,18 @@ export interface Game {
   week: number;
   opponent: string;
   opponent_abbr: string;
-  kickoff_at: string; // ISO timestamp
+  kickoff_at: string;
   tv_network: string | null;
   label: string | null;
   plan_type: PlanType | null;
   parking_bought: boolean;
   notes: string;
-    meet_location: string | null;
-    driver: string | null;
-    meet_time: string | null;
+  meet_location: string | null;
+  driver: string | null;
+  meet_time: string | null;
+  spread: number | null;
+  over_under: number | null;
+  odds_updated_at: string | null;
   created_at: string;
   updated_at: string;
 }
