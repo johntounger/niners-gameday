@@ -11,6 +11,7 @@ import TailgateSection from './TailgateSection';
 import ParkingSection from './ParkingSection';
 import MeetupSection from './MeetupSection';
 import NotesSection from './NotesSection';
+import BettingSection from './BettingSection';
 import ShareSheet from './ShareSheet';
 
 interface Props {
@@ -79,6 +80,7 @@ export default function GameDetailClient({ initialGame, initialGuests, initialIt
       />
 
       <div className="px-3.5 pt-4 pb-10">
+        <BettingSection game={game} />
         <PlanSection game={game} onChange={setGame} />
         <GuestSection game={game} guests={guests} onChange={setGuests} />
         <TailgateSection game={game} items={items} onChange={setItems} />
